@@ -1,69 +1,123 @@
-let navBar = document.querySelector("#navbar__list");
-let sections = document.querySelectorAll(".navbar-section");
-let length = sections.length;
-let sectionPosition = [];
-let oldPosition = 0;
-let currentPosition = 0;
+/**
+ * 
+ * Manipulating the DOM exercise.
+ * Exercise programmatically builds navigation,
+ * scrolls to anchors from navigation,
+ * and highlights section in viewport upon scrolling.
+ * 
+ * Dependencies: None
+ * 
+ * JS Version: ES2015/ES6
+ * 
+ * JS Standard: ESlint
+ * 
+*/
+
+/**
+ * Define Global Variables
+ * 
+*/
+// navigation global var
+const navigation = document.getElementById('navbar__list');
+// sections global var
+const sections = document.querySelectorAll('section');
+
+/**
+ * End Global Variables
+ * Start Helper Functions
+ * 
+*/
 
 
 
-function jumpToSection (sectionID) {
-	window.scrollTo(0,sectionID);
-}
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+*/
+
+// build the nav
+
+const navBuilder = () => {
+
+    let navUI = '';
+    // looping over all sections
+    sections.forEach(section => {
+
+        const sectionID = section.id;
+        const sectionDataNav = section.dataset.nav;
+
+        navUI += `<li><a class="menu__link" href="#${sectionID}">${sectionDataNav}</a></li>`;
+
+    });
+    // append all elements to the navigation
+    navigation.innerHTML = navUI;
 
 
+};
 
-// Bulding the navigation bar
-sections.forEach((element,ind) => {
-    let sectionName = element.getAttribute("data-nav");
-    let navSection = document.createElement("li");
-	let toOfSection = element.offsetTop;
-    navSection.setAttribute("class", "menu__link" + ind);
-    navSection.innerHTML = `<a onClick= "jumpToSection(${toOfSection})">${sectionName}</a>`;
-    navBar.appendChild(navSection);
-});
+navBuilder();
 
-// Check the active section and scrolling
-document.addEventListener("scroll", () => {
-// Check if the user is scrolling or not
-	if (currentPosition != oldPosition)
-	{
-		document.querySelector(".page__header").style.visibility = "visible";
-	}
-	currentPosition = this.scrollY;
-// Section Positions	
-	sectionPosition = [];
-	sections.forEach(element => {
-	let toOfSection = element.getBoundingClientRect().top;
-	sectionPosition.push(toOfSection);
-});
-// Adding and removing active sections
-addIndex = sectionPosition.findIndex(element => element > 0);
-	for (let i = 0 ; i < length ; i++)
-	{
-		if (addIndex === i)
-		{
-			document.querySelector(".menu__link" + addIndex).classList.add("active");
-		}
-		else
-		{
-			document.querySelector(".menu__link" + i).classList.remove("active");
-		}
-	}
-});
-// Hide the menu if the user is no longer scrolling
-setInterval(function () {
-	if (currentPosition === oldPosition)
-	{
-		document.querySelector(".page__header").style.visibility = "hidden";
-	}
-	else
-	{
-		document.querySelector(".page__header").style.visibility = "visible";
-	}
-	oldPosition = currentPosition;
-}, 20000);
+// Add class 'active' to section when near top of viewport
+
+// getting the largest value that's less or equal to the number
+const offset = (section) => {
+    return Math.floor(section.getBoundingClientRect().top);
+};
+
+// remove the active class
+const removeActive = (section) => {
+    section.classList.remove('your-active-class');
+    section.style.cssText = "background-color: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%)";
+};
+// adding the active class
+const addActive = (conditional, section) => {
+    if(conditional){
+        section.classList.add('your-active-class');
+        section.style.cssText = "background-color: yellow;";
+    };
+};
+
+//implementating the actual function
+
+const sectionActivation = () => {
+    sections.forEach(section => {
+        const elementOffset = offset(section);
+
+        inviewport = () => elementOffset < 150 && elementOffset >= -150;
+
+        removeActive(section);
+        addActive(inviewport(),section);
+    });
+};
+
+window.addEventListener('scroll' ,sectionActivation);
+
+// Scroll to anchor ID using scrollTO event
+
+const scrolling = () => {
+
+    const links = document.querySelectorAll('.navbar__menu a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            for(i = 0 ; i<sections ; i++){
+                sections[i].addEventListener("click",sectionScroll(link));
+            }
+        });
+    });
+
+};
+
+scrolling();
 
 /**
  * End Main Functions
+ * Begin Events
+ * 
 */
+
+// Build menu 
+
+// Scroll to section on link click
+
+// Set sections as active
