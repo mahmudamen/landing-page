@@ -1,15 +1,3 @@
-/*
- *
- * CSS written based on SMACSS architecture.
- * To learn more, visit: http://smacss.com/
- * 
- * For simplicity, no reset or normalize is added. 
- * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
- *
-*/
-
-
-/* ---- Base Rules ---- */
 body {
     background: rgb(136,203,171);
     background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
@@ -65,22 +53,26 @@ section {
 
 /* Navigation Styles*/
 .navbar__menu ul {
-    padding: 2%;
     padding-left: 0;
     margin: 0;
-    text-align: center;
+    background-color: rgba(0,13,60,1);
+    text-align: right;
 }
 
 .navbar__menu li {
-    display: inline-flex;
-    padding-left: 2%;
+    display: inline-block;
+    height: 40px;
+    padding: 20px;
+    color: white;
+    margin-right: 20px;
 }
 
 .navbar__menu .menu__link {
-    display: inline-block;
+    display: block;
+    padding: 1em;
     font-weight: bold;
     text-decoration: none;
-    color: #000;
+    /* color: #000; */
 }
 
 .navbar__menu .menu__link:hover {
@@ -194,17 +186,24 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.your-active-class {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+section.active {
+    background: rgb(255, 255, 255);
+    /*background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);*/
+}
+.navbar__menu li:hover {
+    background: rgb(255, 255, 255);
 }
 
-section.your-active-class .landing__container::before {
+.navbar__menu li.active {
+    background: rgb(248, 246, 250);
+}
+
+section.active .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.your-active-class .landing__container::after {
+section.active .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
@@ -222,3 +221,9 @@ section.your-active-class .landing__container::after {
 		           rotate(-360deg);
 	}
 }
+
+
+.navbar__menu .menu__link:active{
+    color:#F00;
+}
+

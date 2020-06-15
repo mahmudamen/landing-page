@@ -47,7 +47,7 @@ const navBuilder = () => {
         const sectionID = section.id;
         const sectionDataNav = section.dataset.nav;
 
-        navUI += `<li><a class="menu__link" href="#${sectionID}">${sectionDataNav}</a></li>`;
+        navUI += `<li><a class="menu__link" id="menu_link_${sectionID}" href="#${sectionID}">${sectionDataNav}</a></li>`;
 
     });
     // append all elements to the navigation
@@ -65,6 +65,9 @@ const offset = (section) => {
     return Math.floor(section.getBoundingClientRect().top);
 };
 
+
+
+
 // remove the active class
 const removeActive = (section) => {
     section.classList.remove('your-active-class');
@@ -75,6 +78,18 @@ const addActive = (conditional, section) => {
     if(conditional){
         section.classList.add('your-active-class');
         section.style.cssText = "background-color: yellow;";
+		//remove active from last one actived
+		var x = document.getElementById("navbar__list").querySelectorAll(".menu__link");
+		var i;
+		for (i = 0; i < x.length; i++) {
+		  x[i].style.color = "black";
+		}
+		//add active one
+		console.log(section.id);
+		document.getElementById("menu_link_"+section.id).style.color="red";
+		 
+		
+		
     };
 };
 
@@ -121,3 +136,6 @@ scrolling();
 // Scroll to section on link click
 
 // Set sections as active
+
+
+
