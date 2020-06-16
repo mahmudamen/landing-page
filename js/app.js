@@ -65,8 +65,37 @@ const removeActive = (section) => {
     section.classList.remove('your-active-class');
     section.style.cssText = "background-color: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%)";
 };
-
+const addActive = (conditional, section) => {
+    if(conditional){
+        section.classList.add('your-active-class');
+        section.style.cssText = "background-color: yellow;";
+		//remove active from last one actived
+		var x = document.getElementById("navbar__list").querySelectorAll(".menu__link");
+		var i;
+		for (i = 0; i < x.length; i++) {
+		  x[i].style.color = "black";
+		}
+		//add active one
+		console.log(section.id);
+		document.getElementById("menu_link_"+section.id).style.color="red";
+		 
+		
+		
+    };
+};
 // Scroll to anchor ID using scrollTO event
+const sectionActivation = () => {
+    sections.forEach(section => {
+        const elementOffset = offset(section);
+
+        inviewport = () => elementOffset < 150 && elementOffset >= -150;
+
+        removeActive(section);
+        addActive(inviewport(),section);
+    });
+};
+
+window.addEventListener('scroll' ,sectionActivation);
 
 
 /**
