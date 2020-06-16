@@ -96,6 +96,20 @@ const sectionActivation = () => {
 };
 
 window.addEventListener('scroll' ,sectionActivation);
+const scrolling = () => {
+
+    const links = document.querySelectorAll('.navbar__menu a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            for(i = 0 ; i<sections ; i++){
+                sections[i].addEventListener("click",sectionScroll(link));
+            }
+        });
+    });
+
+};
+
+scrolling();
 
 
 /**
