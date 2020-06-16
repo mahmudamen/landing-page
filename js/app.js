@@ -17,7 +17,10 @@
  * Define Global Variables
  * 
 */
-
+// navigation global var
+const navigation = document.getElementById('navbar__list');
+// sections global var
+const sections = document.querySelectorAll('section');
 
 /**
  * End Global Variables
@@ -34,10 +37,34 @@
 */
 
 // build the nav
+// build the nav
+
+const navBuilder = () => {
+
+    let navUI = '';
+    // looping over all sections
+    sections.forEach(section => {
+
+        const sectionID = section.id;
+        const sectionDataNav = section.dataset.nav;
+
+        navUI += `<li><a class="menu__link" id="menu_link_${sectionID}" href="#${sectionID}">${sectionDataNav}</a></li>`;
+
+    });
+    // append all elements to the navigation
+    navigation.innerHTML = navUI;
 
 
+};
+navBuilder();
 // Add class 'active' to section when near top of viewport
-
+const offset = (section) => {
+    return Math.floor(section.getBoundingClientRect().top);
+};
+const removeActive = (section) => {
+    section.classList.remove('your-active-class');
+    section.style.cssText = "background-color: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%)";
+};
 
 // Scroll to anchor ID using scrollTO event
 
